@@ -1,0 +1,31 @@
+{
+  "name": "strapi-next-starter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Strapi starter project with Next.js",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run develop -w server\" \"wait-on http://localhost:1337 && npm run dev -w client\"",
+    "setup": "npm install && node -r ts-node/register copy-env.ts ./client && node -r ts-node/register copy-env.ts ./server",
+    "seed": "npm run strapi -w server -- import -f ../seed-data.tar.gz --force",
+    "export": "npm run strapi -w server -- export --no-encrypt -f ../seed-data",
+    "repo:upstream": "git fetch upstream && git merge upstream/main"
+  },
+  "overrides": {
+    "@strapi/admin": "5.31.2",
+    "@strapi/content-type-builder": "5.31.2",
+    "@strapi/upload": "5.31.2"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "wait-on": "^8.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.0.0"
+  }
+}
